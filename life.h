@@ -34,7 +34,8 @@ public:
     int GetHeight() const;
 
 private:
-    bool IsValid_(int x, int y) const;;
+    bool IsValid_(int x, int y) const;
+    std::vector<bool> GetNearCells_(int x, int y) const;
     int width_;
     int height_;
     std::vector<bool> cell_states_;

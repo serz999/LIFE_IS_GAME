@@ -9,9 +9,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(TEST_NAME ${PROJECT_NAME}_tests)
-add_executable(${TEST_NAME} life.h life.cpp example_test.cpp )
+add_executable(${TEST_NAME} life.h life.cpp example_test.cpp)
+add_executable(console_life life.h life.cpp console_life.cpp)
 target_link_libraries(${TEST_NAME} gtest_main)
 
 enable_testing()

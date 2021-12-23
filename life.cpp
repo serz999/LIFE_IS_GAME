@@ -1,5 +1,6 @@
 #include "life.h"
 #include "string"
+#include "algorithm"
 
 const std::vector<bool> &Life::GetCellStates() const {
     return cell_states_;
@@ -62,12 +63,44 @@ std::ostream &operator<<(std::ostream &os, const Life &life) {
     return os;
 }
 
-bool Life::GetStateCell(int x, int y) const {
-    return false;
+int Life::GetNearCellLiveCount(int x, int y) const {
+    auto near_cells = GetNearCells_(x, y);
+    return std::count(near_cells.begin(), near_cells.end(), true);
 }
 
-int Life::GetNearCellLiveCount(int x, int y) const {
-    return 0;
+std::vector<bool> Life::GetNearCells_(int x, int y) const {
+    using namespace std;
+    if (IsValid_(x, y)) {
+        return std::vector<bool>{
+                GetStateCell( x - 1, y - 1), GetStateCell(x, y- 1), GetStateCell(x + 1, y - 1),
+                GetStateCell(x - 1, y), GetStateCell(x + 1, y), GetStateCell(x - 1, y +1),
+                GetStateCell(x, y + 1), GetStateCell(x + 1, y + 1)
+        };
+    } else {
+        throw LifeException("Wrong pos ("+ std::to_string(x) + ", " + std::to_string(y) + ")" );
+    }
+}
+
+void Life::Mutate() {
+    Life other(this->width_, this->height_);
+    for (int x = 0; x < width_; ++x) {
+        for(int y; y < height_; ++y) {
+            if(!GetStateCell(x, y)) {
+                if (GetNearCellLiveCount(x, y) == 3) {
+                    other.SetStateAlive(x, y);
+                } else {
+                    continue;
+                }
+            } else {
+                if (GetNearCellLiveCount(x, y) == 2 || GetNearCellLiveCount(x, y) == 3){
+                    other.SetStateAlive(x, y);
+                } else {
+                    other.SetStateDead(x, y);
+                }
+            }
+        }
+    }
+    std::swap(*this, other);
 }
 
 bool Life::GetStateCell(int x, int y) const {

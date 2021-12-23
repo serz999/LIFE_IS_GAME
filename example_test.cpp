@@ -44,3 +44,15 @@ TEST(LifeTest, visual_representation3) {
                       ".......";
     ASSERT_EQ(std::string(life), exp);
 }
+
+TEST(LifeTest, mutate_test) {
+    Life life(3, 3);
+    life.SetStateAlive(0, 0);
+    life.Mutate();
+    std::string exp = ".......\n"
+                      "|- - -|\n"
+                      "|- - -|\n"
+                      "|- - -|\n"
+                      ".......";
+    ASSERT_EQ(std::string(life), exp);
+}
