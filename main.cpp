@@ -1,10 +1,10 @@
-#include <iostream>
 #include "life.h"
 #include "Game.h"
+
 int main() {
-    Life life(30, 30);
+    Life life(40, 20);
     life.FillRandomStates();
-    Game game(&life, 10);
+    Game game(&life, 50);
     game.RenderLoop();
     return 0;
 }

@@ -16,7 +16,7 @@ int main() {
    while(true) {
        std::cout << life << std::endl;
        life.Mutate();
-       std::this_thread::sleep_for(400ms);
+       std::this_thread::sleep_for(150ms);
        system("clear");
    }
 }

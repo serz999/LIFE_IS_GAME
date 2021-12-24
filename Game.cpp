@@ -9,14 +9,14 @@ Game::Game(Life *life_ptr, size_t tile_size) : life_ptr_(life_ptr), tile_size_({
             for (int x = 0; x < life_ptr_->GetWidth(); x++) {
                 auto tile = new sf::RectangleShape();
                 tile->setSize({(float) tile_size_.x, (float) tile_size_.y});
-                tile->setFillColor({148, 0, 211, 45});
+                tile->setFillColor({0, 0, 0, 0});
                 tile->setOutlineThickness(1);
                 tile->setOutlineColor(sf::Color::White);
                 tile->setPosition(x * tile_size_.x, y * tile_size_.y);
                 tile_map_.push_back(*tile);
             }
         }
-        window_.create(sf::VideoMode{window_size_.x, window_size_.y}, "LIFE V KAIF");
+        window_.create(sf::VideoMode{window_size_.x, window_size_.y}, "MY_WINDOW");
     }
     else std::cout << "Invalid Ptr\n";
 }
@@ -38,7 +38,7 @@ void Game::RenderLoop() {
         }
         window_.display();
         if (!is_paused_) life_ptr_->Mutate();
-        sf::sleep(sf::milliseconds(100));
+        sf::sleep(sf::milliseconds(150));
     }
 }
 
