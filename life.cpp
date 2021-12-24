@@ -43,12 +43,10 @@ bool Life::GetStateCell(int x, int y) const {
     if (IsValid_(x, y)) return cell_states_[y * width_ + x];
     else throw LifeException("Wrong position (" + std::to_string(x) + " " + std::to_string(y) + ")");
 }
-
 int Life::GetNearCellLiveCount(int x, int y) const {
     auto near_cells = GetNearCells_(x, y);
     return std::count(near_cells.begin(), near_cells.end(), true);
 }
-
 Life::operator std::string() const {
     std::string result;
     size_t buf_size = 0;
@@ -70,12 +68,10 @@ Life::operator std::string() const {
     }
     return std::string(buf_size, '.') + "\n" + result + std::string(buf_size, '.');
 }
-
 std::ostream &operator<<(std::ostream &os, const Life &life) {
     os << std::string(life);
     return os;
 }
-
 std::vector<bool> Life::GetNearCells_(int x, int y) const {
     if (IsValid_(x, y)) {
         return std::vector<bool>{GetStateCell(x - 1,y - 1), GetStateCell(x,y - 1), GetStateCell(x + 1,y - 1),
@@ -84,7 +80,6 @@ std::vector<bool> Life::GetNearCells_(int x, int y) const {
     }
     else throw LifeException("Wrong position (" + std::to_string(x) + " " + std::to_string(y) + ")");
 }
-
 void Life::Mutate() {
     Life other(this->width_, this->height_);
     for (int x = 0; x < width_; x++) {
@@ -100,7 +95,6 @@ void Life::Mutate() {
     }
     std::swap(*this, other);
 }
-
 void Life::FillRandomStates() {
     std::random_device dev;
     std::mt19937 rng(dev());

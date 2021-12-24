@@ -1,4 +1,5 @@
 #pragma once
+
 #include "life.h"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>

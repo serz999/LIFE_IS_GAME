@@ -1,13 +1,16 @@
 #pragma once
+
 #include <vector>
 #include <exception>
 #include <stdexcept>
 #include <ostream>
+
 class LifeException : public std::runtime_error {
 public:
     using std::runtime_error::runtime_error;
 
 };
+
 class Life {
 public:
     Life(int width, int height);

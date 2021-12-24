@@ -20,7 +20,6 @@ Game::Game(Life *life_ptr, size_t tile_size) : life_ptr_(life_ptr), tile_size_({
     }
     else std::cout << "Invalid Ptr\n";
 }
-
 void Game::RenderLoop() {
     while (window_.isOpen()) {
         sf::Event event{};
@@ -41,7 +40,6 @@ void Game::RenderLoop() {
         sf::sleep(sf::milliseconds(150));
     }
 }
-
 void Game::HandleEvent(sf::Event &event, sf::View &view) {
     sf::Vector2<int> mouse_pos = sf::Mouse::getPosition(window_);
     auto mouse_world_pos = window_.mapPixelToCoords(mouse_pos, view);

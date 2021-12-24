@@ -1,10 +1,24 @@
-cmake_minimum_required(VERSION 3.20)
-project(window_life)
+cmake_minimum_required(VERSION 3.14)
+project(example)
 
-set(CMAKE_CXX_STANDARD 20)
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG        release-1.10.0
+)
+FetchContent_MakeAvailable(googletest)
 
-#find graphic lib
+set(CMAKE_CXX_STANDARD 17)
+set(TEST_NAME ${PROJECT_NAME}_tests)
+
 find_package(SFML 2.5.1 COMPONENTS graphics window REQUIRED)
-add_executable(window_life life.h life.cpp main.cpp Game.cpp Game.h Game.cpp Game.h main.cpp)
-
+add_executable(${TEST_NAME} example_test.cpp console_life.cpp life.cpp life.h)
+add_executable(window_life life.h life.cpp main.cpp Game.cpp Game.h)
+add_executable(console_life life.h life.cpp console_life.cpp)
 target_link_libraries(window_life PUBLIC sfml-graphics sfml-window)
+target_link_libraries(${TEST_NAME} gtest_main)
+
+enable_testing()
+include(GoogleTest)
+gtest_discover_tests(${TEST_NAME})
